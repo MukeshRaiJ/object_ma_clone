@@ -1,16 +1,17 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
-  
-  const images = [
-    '/Magarmach.png',
-    '/Matka.png',
-    '/Machli.png',
-    '/Makdi.png',
-  ];
+const images = [
+  '/Magarmach.png',
+  '/Matka.png',
+  '/Machli.png',
+  '/Makdi.png',
+];
 
+const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [audioPlayed, setAudioPlayed] = useState(false);
   const [animationStarted, setAnimationStarted] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -31,7 +32,6 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
         onComplete();
       }, 15000);
 
-      
       const secondAudioTimeout = setTimeout(() => {
         const secondAudio = new Audio('./audio/Intro/Chalo.mp3');
         secondAudio.play().then(() => {
@@ -40,7 +40,6 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
           console.error("Failed to play second audio:", error);
         });
       }, 11000);
-
 
       return () => {
         clearTimeout(completeTimeout);
@@ -52,7 +51,6 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
   const handleStart = () => {
     setButtonClicked(true);
     const audio = new Audio('./audio/Intro/ma_song.mp3');
-    
     audio.play().then(() => {
       setAudioPlayed(true);
     }).catch(error => {
@@ -72,15 +70,15 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
       )}
       {buttonClicked && (
         <motion.img
-          src="/singing.gif" 
+          src="/singing.gif"
           alt="Animated GIF"
           className="w-48 h-48"
           initial={{ x: "50%", y: "90%" }}
           animate={{
-            x: ["-55%", "-55%", "-55%"], 
+            x: ["-55%", "-55%", "-55%"],
             y: ["90%", "90%", "90%"],
           }}
-          transition={{ duration: 15 }} 
+          transition={{ duration: 15 }}
         />
       )}
       {animationStarted && (
