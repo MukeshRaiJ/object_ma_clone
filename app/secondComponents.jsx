@@ -3,7 +3,7 @@ import React from 'react'
 const secondComponents = () => {
   return (
     <div>
-      hello
+      flipstickers
     </div>
   )
 }

@@ -1,21 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const images = [
-  '/Magarmach.png',
-  '/Matka.png',
-  '/Machli.png',
-  '/Makdi.png',
-];
+const images = ["/Magarmach.png", "/Matka.png", "/Machli.png", "/Makdi.png"];
 
-const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
+const FirstComponent: React.FC<{ onComplete: () => void }> = ({
+  onComplete,
+}) => {
   const [audioPlayed, setAudioPlayed] = useState(false);
   const [animationStarted, setAnimationStarted] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [secondAudioPlayed, setSecondAudioPlayed] = useState(false);
+
+  
+  const firstAudioRef = useRef<HTMLAudioElement | null>(null);
+  const secondAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (audioPlayed) {
@@ -33,12 +34,16 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
       }, 15000);
 
       const secondAudioTimeout = setTimeout(() => {
-        const secondAudio = new Audio('./audio/Intro/Chalo.mp3');
-        secondAudio.play().then(() => {
-          setSecondAudioPlayed(true);
-        }).catch(error => {
-          console.error("Failed to play second audio:", error);
-        });
+        if (secondAudioRef.current) {
+          secondAudioRef.current
+            .play()
+            .then(() => {
+              setSecondAudioPlayed(true);
+            })
+            .catch((error) => {
+              console.error("Failed to play second audio:", error);
+            });
+        }
       }, 11000);
 
       return () => {
@@ -50,23 +55,31 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({ onComplete }) =>
 
   const handleStart = () => {
     setButtonClicked(true);
-    const audio = new Audio('./audio/Intro/ma_song.mp3');
-    audio.play().then(() => {
-      setAudioPlayed(true);
-    }).catch(error => {
-      console.error("Failed to play audio:", error);
-    });
+    if (firstAudioRef.current) {
+      firstAudioRef.current
+        .play()
+        .then(() => {
+          setAudioPlayed(true);
+        })
+        .catch((error) => {
+          console.error("Failed to play audio:", error);
+        });
+    }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen custom-bg gap-4">
+      <audio ref={firstAudioRef} src="./audio/Intro/ma_song.mp3" />
+      <audio ref={secondAudioRef} src="./audio/Intro/Chalo.mp3" />
       {!buttonClicked && (
-        <button
-          onClick={handleStart}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Start
-        </button>
+        <div onClick={handleStart} className="cursor-pointer">
+          <Image
+            src="/play_Button.png"
+            alt="Start Button"
+            width={100}
+            height={100}
+          />
+        </div>
       )}
       {buttonClicked && (
         <motion.img
