@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import FirstComponent from '../app/firstComponents';
-import SecondComponent from '../app/secondComponents';
+import SecondComponent from './secondComponents';
 import './globals.css';
 
 const Home: React.FC = () => {
