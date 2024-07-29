@@ -123,4 +123,4 @@ const FirstComponent: React.FC<{ onComplete: () => void }> = ({
   );
 };
 
-export default FirstComponent;
+export default FirstComponent; 
