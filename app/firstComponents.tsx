@@ -4,18 +4,21 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+
+
 const images = ["/Magarmach.png", "/Matka.png", "/Machli.png", "/Makdi.png"];
+//const images = {}
 
 const FirstComponent: React.FC<{ onComplete: () => void }> = ({
   onComplete,
 }) => {
-  const [audioPlayed, setAudioPlayed] = useState(false);
-  const [animationStarted, setAnimationStarted] = useState(false);
+  const [audioPlayed, setAudioPlayed] = useState<boolean>(false);
+  const [animationStarted, setAnimationStarted] = useState<boolean>(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [secondAudioPlayed, setSecondAudioPlayed] = useState(false);
 
   
-  const firstAudioRef = useRef<HTMLAudioElement | null>(null);
+  const firstAudioRef = useRef<HTMLAudioElement>(null);
   const secondAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {

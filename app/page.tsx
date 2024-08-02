@@ -5,6 +5,8 @@ import FirstComponent from '../app/firstComponents';
 import SecondComponent from './secondComponents';
 import './globals.css';
 
+//const man: string = "he is humarn"
+
 const Home: React.FC = () => {
   const [showSecondComponent, setShowSecondComponent] = useState(false);
 
